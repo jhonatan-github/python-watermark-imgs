@@ -11,7 +11,7 @@ images_path = glob.glob("./images/*.*")
 
 # Tratamento imagem (marca d'água)
 def watermark_tratament(src, watermark, pos=(0, 0), scale=1):
-    
+
     watermark = cv2.resize(watermark, (0, 0), fx=scale, fy=scale)
     h, w, _ = watermark.shape  # Tamanho da marca d'água 
     rows, cols, _ = src.shape  # Tamanho da imagem  
@@ -32,13 +32,13 @@ for img_path in images_path:
         
         # Seleciona uma imagem
         img = cv2.imread(img_path) 
-                
-        # Define uma porcentagem de escala
+               
+        # Define uma porcentagem de escala de largura e altura
         percent_of_scaling = 100
         new_width = int(img.shape[1] * percent_of_scaling/100)
         new_height = int(img.shape[0] * percent_of_scaling/100)
         
-        # Define dimensão padrão
+        # Define dimensão padrão largura e altura
         new_dim = (new_width, new_height)
         
         # Aplica nova dimensão
@@ -49,16 +49,16 @@ for img_path in images_path:
         opacity = opacity / 100
         
         # Diretório da imagem que contém a marca d'água e logotipo 
-        watermark_img = cv2.imread('./images/logo_marcadagua/marcadagua.png', -1)
+        watermark_img = cv2.imread('./images/marcadagua/marcadagua.png', -1)
         
         # Pega imagem redimensionda
-        imagem_redimensionada = resized_img.copy()
+        img_resized = resized_img.copy()
         
         # Mensagem que mostra o tamanho da nova imagem 
-        print(imagem_redimensionada.shape)
+        print(img_resized.shape)
         
         # Tratamento para aplicação da marca d'água
-        watermark = watermark_tratament(imagem_redimensionada, watermark_img, pos)
+        watermark = watermark_tratament(img_resized, watermark_img, pos)
         output = resized_img.copy()
         resized_img = cv2.addWeighted(watermark, opacity, output, 1 - opacity, 0, output)
         
