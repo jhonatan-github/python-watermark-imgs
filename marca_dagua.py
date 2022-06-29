@@ -7,6 +7,21 @@ import shutil
 
 from numpy._distributor_init import filename
 
+# Função para redimensionar a imagem de forma proporcional
+def img_resizing(img, aux, aux_img, width_img):
+    
+    # Realiza cálculo para saber quantos pixels a imagem deve diminuir regra de 3
+    aux_heigth = aux_img-aux
+    aux = (aux_heigth*100)/aux_img
+    aux_width = (width_img*aux)/100
+    aux_width = width_img - aux_width
+    aux_heigth = aux_img - aux_heigth
+    
+    # Redimensiona a imagem seguindo o valor da altura e largura encontrados no cálculo anterior
+    resized_img = cv2.resize(img, (int(aux_heigth), int(aux_width)), interpolation=cv2.INTER_AREA)
+    
+    return resized_img
+
 # Diretório das imagens originais
 images_path = glob.glob("./images/*.*")
 
@@ -37,6 +52,61 @@ for img_path in images_path:
         
         # Seleciona uma imagem
         img = cv2.imread(img_path) 
+<<<<<<< master
+        print(img_path)
+        # Diretório da imagem que contém a marca d'água e logotipo 
+        watermark_img = cv2.imread('./watermark.png', -1)
+        # pega a imagem do catalogo 
+        catalog = cv2.imread('fundo.jpg')
+        # Pega a imagem de fundo para receber a imagem redimensionada
+        fundo = catalog.copy()
+        fundo = cv2.resize(fundo, (640,480), interpolation=cv2.INTER_AREA)
+        
+        # Pega as dimensões da marca d'água
+        heigth_watermark, width_watermark, _ = watermark_img.shape
+        
+        # Pega as dimensões da imagem
+        heigth_img, width_img, _ = img.shape
+        
+        # Verifica em qual padrão a imagem se identifica e chama a função que redimensiona a imagem
+        if heigth_img>width_img and heigth_img>heigth_watermark:
+            resized_img = img_resizing(img,heigth_watermark, heigth_img, width_img)
+            
+        elif heigth_img<width_img and width_img>heigth_watermark:
+            resized_img = img_resizing(img,width_watermark, width_img, heigth_img)
+            
+        elif heigth_img == width_img and heigth_img>heigth_watermark:
+            resized_img = img_resizing(img,heigth_watermark, width_img, heigth_img)
+            
+        else:
+            # Deixa a imagem no tamanho normal
+            resized_img = cv2.resize(img, (heigth_img, width_img), interpolation=cv2.INTER_AREA)
+        
+        # Seleciona a altura e largura da imagem de fundo
+        altura_img, largura_img, _ = fundo.shape
+        
+        # Identifica o meio da imagem
+        center_y = int(altura_img/2)
+        center_x = int(largura_img/2)
+        
+        # Seleciona a altura e largura da imagem do Catalogo que foi redimensionada
+        altura_img, largura_img, _ = resized_img.shape
+        
+        # Pega do meio da imagem de fundo e diminui metade da imagem do Catalogo para saber onde a imagem vai começar   
+        top_y_img = center_y - int(altura_img/2)
+        left_x_img = center_x - int(largura_img/2)
+        
+        # Soma o início com o tamanho da imagem para saber onde a imagem termina
+        bottom_y_img = top_y_img + altura_img
+        right_x_img = left_x_img + largura_img
+        
+        # Adiciona na imagem de fundo a imagem do catalogo
+        fundo[top_y_img:bottom_y_img, left_x_img:right_x_img] = resized_img
+        
+        # Define a opacidade
+        opacity = opacity / 100
+        
+=======
         
         # Diretório da marca d'água
         watermark_img = cv2.imread('./images/marcadagua/watermark.png', -1)
@@ -105,6 +175,7 @@ for img_path in images_path:
         # Define a opacidade
         opacity = opacity / 100
         
+>>>>>>> master
         # Pega imagem redimensionada
         img_resized = fundo.copy()
         
@@ -114,7 +185,10 @@ for img_path in images_path:
         # Tratamento para aplicação da marca d'água
         watermark = watermark_tratament(img_resized, watermark_img, pos)
         output = fundo.copy()
+<<<<<<< master
+=======
         print(str(watermark.shape)+"=="+str(output.shape))
+>>>>>>> master
         resized_img = cv2.addWeighted(watermark, opacity, output, 1 - opacity, 0, output)
         
         # Defini o mesmo nome da imagem orginal 
@@ -133,6 +207,9 @@ for dirname, subdirs, files in os.walk("./temp/"):
     for filename in files:
         zf.write(os.path.join(dirname, filename))
     zf.close()
+<<<<<<< master
+=======
     
     # Remove diretório temporário
     shutil.rmtree('./temp/')
+>>>>>>> master
