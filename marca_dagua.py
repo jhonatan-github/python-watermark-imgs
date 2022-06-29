@@ -52,7 +52,7 @@ for img_path in images_path:
         
         # Seleciona uma imagem
         img = cv2.imread(img_path) 
-<<<<<<< master
+
         print(img_path)
         # Diretório da imagem que contém a marca d'água e logotipo 
         watermark_img = cv2.imread('./watermark.png', -1)
@@ -105,9 +105,7 @@ for img_path in images_path:
         
         # Define a opacidade
         opacity = opacity / 100
-        
-=======
-        
+                
         # Diretório da marca d'água
         watermark_img = cv2.imread('./images/marcadagua/watermark.png', -1)
         print(watermark_img.shape)
@@ -145,9 +143,6 @@ for img_path in images_path:
         else:
             # Aplica nova dimensão na imagem
             resized_img = cv2.resize(img, (width_img, heigth_img), interpolation=cv2.INTER_AREA)
-
-
-            
         
         # Seleciona a altura e largura da imagem de fundo
         altura_img, largura_img, _ = fundo.shape
@@ -175,7 +170,6 @@ for img_path in images_path:
         # Define a opacidade
         opacity = opacity / 100
         
->>>>>>> master
         # Pega imagem redimensionada
         img_resized = fundo.copy()
         
@@ -185,10 +179,8 @@ for img_path in images_path:
         # Tratamento para aplicação da marca d'água
         watermark = watermark_tratament(img_resized, watermark_img, pos)
         output = fundo.copy()
-<<<<<<< master
-=======
+
         print(str(watermark.shape)+"=="+str(output.shape))
->>>>>>> master
         resized_img = cv2.addWeighted(watermark, opacity, output, 1 - opacity, 0, output)
         
         # Defini o mesmo nome da imagem orginal 
@@ -207,9 +199,8 @@ for dirname, subdirs, files in os.walk("./temp/"):
     for filename in files:
         zf.write(os.path.join(dirname, filename))
     zf.close()
-<<<<<<< master
-=======
+
     
     # Remove diretório temporário
     shutil.rmtree('./temp/')
->>>>>>> master
+
