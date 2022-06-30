@@ -121,7 +121,7 @@ for img_path in images_path:
         print(str(watermark.shape)+"=="+str(output.shape))
         resized_img = cv2.addWeighted(watermark, opacity, output, 1 - opacity, 0, output)
         
-        # Defini o mesmo nome da imagem orginal 
+        # Define o mesmo nome da imagem orginal 
         filename= os.path.basename(img_path)
         
         # Salva as imagens tratadas em um diretório temporário
