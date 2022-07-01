@@ -6,7 +6,7 @@ import os
 import shutil
 
 from numpy._distributor_init import filename
-
+1
 # Diretório das imagens originais
 images_path = glob.glob("./images/*.*")
 
