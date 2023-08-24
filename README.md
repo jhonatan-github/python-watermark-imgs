@@ -1,10 +1,10 @@
-Watermark Imagens
+Watermark Imagens <br>
 Este script em Python é usado para aplicar uma marca d'água em uma coleção de imagens. Ele redimensiona as imagens de acordo com as dimensões da marca d'água e as combina com uma imagem de fundo de catálogo para criar uma nova imagem que inclui a marca d'água.
 
 Pré-requisitos
 Python 3.x
-OpenCV (cv2) - Você pode instalá-lo usando pip install opencv-python
-Biblioteca NumPy (numpy) - Você pode instalá-la usando pip install numpy
+OpenCV (cv2) - Você pode instalá-lo usando <br> pip install opencv-python
+Biblioteca NumPy (numpy) - Você pode instalá-la usando <br> pip install numpy
 Como Usar
 Certifique-se de que as imagens originais estão no diretório ./images/.
 
